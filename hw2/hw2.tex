@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{fancyhdr}
+\usepackage{lipsum}  
+\usepackage{listings} 
+\usepackage{xcolor}   
+\usepackage{amsmath}
+\usepackage{enumitem}
+
+% Define macros for title and author
+\newcommand{\thetitle}{MATH 417 502 \\ Homework 3}
+\newcommand{\theauthor}{Keegan Smith}
+
+\title{\thetitle}
+\author{\theauthor}
+
+\pagestyle{fancy}
+\fancyhf{}  % Clear all header and footer fields
+\fancyhead[L]{\nouppercase{\rightmark}}
+\fancyhead[C]{\thetitle}  % Title in the center
+\fancyhead[R]{\theauthor}  % Your name on the right
+\begin{document}
+\maketitle
+\section*{Problem 1}
+Initially our memory space looks like:\\
+16 byte free list: [0, ..., 15] \\
+8 byte free list: [] \\
+4 byte free list: [] \\
+2 byte free list: [] \\
+1 byte free list: [] \\
+after 1 byte is requested: \\
+16 byte free list: [] \\
+8 byte free list: [8,..., 15] \\
+4 byte free list: [4,..., 7] \\
+2 byte free list: [2, 3] \\
+1 byte free list: [1] \\
+after 2 byte requested (so now 3 bytes in total requested):\\
+16 byte free list: [] \\
+8 byte free list: [8,..,15] \\
+4 byte free list: [4,..., 7] \\
+2 byte free list: [] \\
+1 byte free list: [1] \\
+after 4 byte requested (so now 7 bytes in total requested):\\
+16 byte free list: [] \\
+8 byte free list: [8,..,15] \\
+4 byte free list: [] \\
+2 byte free list: [] \\
+1 byte free list: [1] \\
+after 2 byte requested (so now 9 bytes in total requested):\\
+16 byte free list: [] \\
+8 byte free list: [] \\
+4 byte free list: [12,...,15] \\
+2 byte free list: [10,11] \\
+1 byte free list: [1] \\
+\section*{Problem 2}
+\begin{enumerate}[label=\alph*)]
+\item There are $\frac{2^{36}}{2^{13}} = 2^{23}$ pages in the virtual address space. \\
+\item If each page table entry is 4 bytes = $2^5 = 32$ bits, then there must be $2^32$ physical pages. Thus the total addressable memory should be that times the size of a page: $2^32 \cdot 2^{13} = 2^{45}$ bytes. \\
+\item I would use a three level page table because it would minimize the amount of memory used by page tables. \\
+\item For a single page table, the number of page table entries would be $\frac{2^33}{2^13} = 2^{20}$. Each page table entry is 4 bytes so that would be $2^{22}$ bytes.\\
+For a two level page table, we can split the page table address into two, making it so that we can address into the first table with 10 bits, which tells us the location of the second page table, and then we can address into the second page table with 10 bits, and that page table entry should tell us the physical page address. Thus the average page size would be $2^10 \cdot 2^2 = 2^{12}$ bytes. \\
+For a three level page table, we can split the page table address into three, making it so that we can address into the first table with 6 bits, second table with 7 bits, and third table with 7 bits. This gives us an average page table size of $\frac{2^6 + 2^8}{3} \cdot 4$ bytes. 
+\end{enumerate}
+\end{document}
