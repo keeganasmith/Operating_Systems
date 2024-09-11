@@ -7,7 +7,7 @@
 \usepackage{enumitem}
 
 % Define macros for title and author
-\newcommand{\thetitle}{MATH 417 502 \\ Homework 3}
+\newcommand{\thetitle}{MATH 410 502 \\ Homework 2}
 \newcommand{\theauthor}{Keegan Smith}
 
 \title{\thetitle}
@@ -61,6 +61,13 @@ after 2 byte requested (so now 9 bytes in total requested):\\
 \section*{Problem 3}
 \begin{enumerate}[label=\alph*)]
 \item The page size would be $2^8$ bytes\\
-\item A process that has $2^{18}$ bytes would be using $\frac{2^{18}}{2^8} = 2^{10}$ pages. This means that the number of allocated page table entries in the third level table must be $2^{10}$. Each third level page table has $2^6$ entries, so there must have been $\frac{2^{10}}{2^6} = 2^4$ 2nd level page entries allocated. There are $2^8$ total 2nd level page tables, so there must have been $\frac{2^8}{2^4} = 2^4$ 1st level page entries allocated. The number of pages is $\frac{2^{32}}{2^8} = 2^{24}$ bytes, so the size of each page entry must be 24 bits, or 3 bytes. Thus we have a final answer of $(2^{10} + 2^{5}) \cdot 3 = 3168$ bytes. \\
+\item A process that has $2^{18}$ bytes would be using $\frac{2^{18}}{2^8} = 2^{10}$ pages. This means that the number of allocated page table entries in the third level table must be $2^{10}$. \\Each third level page table has $2^6$ entries, so there must have been $\frac{2^{10}}{2^6} = 2^4$ 2nd level page entries allocated (because $2^4$ third level pages were allocated).\\ The size of a level 2 page table is $2^8$ entries, since only $2^4$ entries were needed, we only allocated one level 2 page table.\\ This means we only needed one page entry in the level 1 page table, and thus we only allocated one level one page table. So in total, we allocated 3 level 3 tables, one level 2 table, and one level one table. \\The total number of pages is $\frac{2^{32}}{2^8} = 2^{24}$, so the size of a page entry is 24 bits or 3 bytes. \\
+So in total, the page table size was $2^6 \cdot 2^4 \cdot 3 + 2^8\cdot 3 + 2^{10} \cdot 3$ bytes, and wasted $(2^8 - 3 + 2^{10} - 1) \cdot 3$ bytes due to internal fragmentation\\ 
+\item For the code segment, we are allocating a total of $2^{14} \cdot 3$ bytes which is $\frac{2^{14} \cdot 3 }{2^8} = 2^6 \cdot 3$ pages. Thus we need $2^6 \cdot 3$ entries in our L3 page table, L3 has $2^6$ entries per table, so we allocated 3 tables. Since we allocated 3 tables in L3, we must've used 3 entries in L2 page table, the number of entries in an L2 table is $2^8$ so we only needed to allocate 1 L2 page table. So of course we only allocated 1 L1 page table. So for the code segment's page tables we consumed: $(2^6\cdot 3 + 2^8 + 2^10) \cdot 3$ bytes. Memory which was not used (in the L1 and L2 page tables) is $(2^8 - 3 + 2^{10} - 1) \cdot3 $ (we only used 3 entries in the L2 table and only one entry in L1). \\
+For the data segment: $600K = 75 \cdot 2^{15}$ bytes $= \frac{75 \cdot 2^{15}}{2^8}$ pages $= 75 \cdot 2^7$ pages. So we will need $\frac{75 \cdot 2^7}{2^6} = 75 \cdot 2$ L3 page tables. So we will need $\lceil \frac{75 \cdot 2}{2^8} \rceil = 1$ L2 page (which is wasting $(2^8 - 150) \cdot 3 = 318$ bytes). We are only using 1 L1 entry so 1 L1 page table, and so we are wasting $(2^{10} -1) \cdot 3$ bytes. \\
+In total for the data segment, we allocated: $(75 \cdot 2 \cdot 2^6 + 2^8 + 2^{10}) \cdot 3$ bytes. \\
+We wasted $318 + (2^{10} -1) \cdot 3$ bytes. \\
+For the stack segment, I already did this in b). We allocated a total of $2^6 \cdot 2^4 \cdot 3 + 2^8\cdot 3 + 2^{10} \cdot 3$ and wasted $(2^8 - 3 + 2^{10} - 1) \cdot 3$ bytes.  \\
+So in total we allocated $(2^6\cdot 3 + 2^8 + 2^{10}) \cdot 3 + (75 \cdot 2 \cdot 2^6 + 2^8 + 2^{10}) \cdot 3 + 2^6 \cdot 2^4 \cdot 3 + 2^8\cdot 3 + 2^{10} \cdot 3$ for page tables and wasted $(2^8 - 3 + 2^{10} - 1) \cdot 3 + 318 + (2^{10} -1) \cdot 3 + (2^8 - 3 + 2^{10} - 1) \cdot3$ bytes due to internal fragmentation. \\
 \end{enumerate}
 \end{document}
