@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.8.24)  11 SEP 2024 02:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.8.24)  11 SEP 2024 04:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -238,6 +238,16 @@ Underfull \hbox (badness 10000) in paragraph at lines 58--59
  []
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 63--64
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 64--65
+
+ []
+
+
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 22.43335pt, for example:
 (fancyhdr)                \setlength{\headheight}{22.43335pt}.
@@ -254,11 +264,11 @@ L3 programming layer <2024-01-04>
 Here is how much of TeX's memory you used:
  4475 strings out of 474486
  70897 string characters out of 5743283
- 1931542 words of memory out of 5000000
+ 1933542 words of memory out of 5000000
  26760 multiletter control sequences out of 15000+600000
  562837 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 79i,11n,93p,412b,266s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 79i,11n,93p,678b,266s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/keegan/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm
 /cmbx12.pfb><C:/Users/keegan/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
 msfonts/cm/cmr10.pfb><C:/Users/keegan/AppData/Local/Programs/MiKTeX/fonts/type1
@@ -267,7 +277,7 @@ nts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/keegan/AppData/Local/Programs/
 MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/keegan/AppData/Local/P
 rograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/keegan/AppData
 /Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on hw2.pdf (2 pages, 85483 bytes).
+Output written on hw2.pdf (2 pages, 87327 bytes).
 PDF statistics:
  44 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
