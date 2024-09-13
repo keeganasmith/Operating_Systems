@@ -140,6 +140,9 @@ ContFramePool::ContFramePool(unsigned long _base_frame_no,
     } else {
         bitmap = (unsigned char *) (info_frame_no * FRAME_SIZE);
     }
+    for(int i = 0; i < n_frames; i+= 8){
+        bitmap[i/8] = 0;
+    }
     
 
 }
