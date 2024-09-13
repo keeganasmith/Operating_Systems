@@ -141,6 +141,7 @@ ContFramePool::ContFramePool(unsigned long _base_frame_no,
         bitmap = (unsigned char *) (info_frame_no * FRAME_SIZE);
     }
     
+
 }
 
 unsigned long ContFramePool::get_frames(unsigned int _n_frames)

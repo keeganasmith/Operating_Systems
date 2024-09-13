@@ -46,7 +46,7 @@ private:
     unsigned long base_frame_no;
     unsigned long n_frames;
     unsigned long info_frame_no;
-    
+
     
     /* ---- STATE MANAGEMENT */
     
