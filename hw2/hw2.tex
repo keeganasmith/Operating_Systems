@@ -69,6 +69,51 @@ In total for the data segment, we allocated: $(75 \cdot 2 \cdot 2^6 + 2^8 + 2^{1
 We wasted $318 + (2^{10} -1) \cdot 3$ bytes. \\
 For the stack segment, I already did this in b). We allocated a total of $2^6 \cdot 2^4 \cdot 3 + 2^8\cdot 3 + 2^{10} \cdot 3$ and wasted $(2^8 - 3 + 2^{10} - 1) \cdot 3$ bytes.  \\
 So in total we allocated $(2^6\cdot 3 + 2^8 + 2^{10}) \cdot 3 + (75 \cdot 2 \cdot 2^6 + 2^8 + 2^{10}) \cdot 3 + 2^6 \cdot 2^4 \cdot 3 + 2^8\cdot 3 + 2^{10} \cdot 3$ for page tables and wasted $(2^8 - 3 + 2^{10} - 1) \cdot 3 + 318 + (2^{10} -1) \cdot 3 + (2^8 - 3 + 2^{10} - 1) \cdot3$ bytes due to internal fragmentation. \\
-\item The size of the page should just be the offset, $2^{12}$ bytes since the protection bits should be accounted for in the page table entries. 
+\end{enumerate}
+\section*{Problem 4}
+\begin{enumerate}[label=\alph*)]
+\item The size of the page should just be the max page offset, $2^{12}$ bytes, since the protection bits should be accounted for in the page table entries. 
+\item  For a process that uses 64K memory we have: $64K = 2^6 \cdot 2^{10} = 2^{16}$, dividing this by the size of a page should give us the total number of pages needed by the program: \\
+\[
+\frac{2^{16}}{2^{12}} = 2^4 \mbox{ pages}
+\]
+So we will be needing $2^4$ entries in our L3 page table. There are $2^8$ entries per L3 page table, so we should be fine with just one $L3$ page table. This will waste $2^8 - 2^4$ entries. \\\\
+We only needed one L3 page table, so we will only need one L2 entry, and thus only one L2 page table. The number of entries in an L2 page table is $2^4$, so we will be wasting $2^4 - 1$ entries. \\\\
+We only needed one L2 page table, so we will only need one L1 entry, and thus only one L1 page table. The number of entries in an L1 page table is $2^8$, so we will be wasting $2^8 - 1$ entries. \\\\
+In total we used 1 L3 page table, 1 L2 page table, and  1 L1 page table. So in total we allocated $2^8 + 2^4 + 2^8 = 2^9 + 2^4$ page table entries. Each page table entry is $44 + 4$ bits (physical address + protection bits) which is 6 bytes. So in total, the page tables used $(2^9 + 2^4) \cdot 6 = 3168$ bytes.\\\\ In total, we wasted: $2^8 - 2^4 + 2^4 - 1 + 2^8 - 1 = 2^9 - 2$ page table entries which is $(2^9 - 2) \cdot 6 = 3060$ bytes. \\
+\item  For the code segment, we are allocating a total of $2^{14} \cdot 3$ bytes which is $\frac{2^{14} \cdot 3 }{2^12} = 2^2 \cdot 3$ pages. Thus we need $2^2 \cdot 3$ entries in our L3 page table, L3 has $2^8$ entries per table, so we allocated 1 table. This will waste $2^8 - 2^2 \cdot 3$ entries. \\\\
+We only allocated 1 L3 table, so we only need one L2 entry, and thus only one L2 table. This will waste $2^4 - 1$ entries. \\\\
+We only allocated 1 L2 table, so we only need one L1 entry, and thus only one L1 table. This will waste $2^8 - 1$ entries. \\\\
+So for the code segment page tables, we allocated
+\[
+2^8 + 2^4 + 2^8 = 2^9 + 2^4 \mbox{ entries}
+\] entries, for a total of $(2^9 + 2^4) \cdot 6 = 3168$ bytes. We wasted: \\
+\[
+2^8 - 2^2 \cdot 3 + 2^4 - 1 + 2^8 - 1 = 514 \mbox { entries}
+\]
+for a total of $514 \cdot 6 = 3084$ bytes wasted. \\
+For the data segment: $600K = 75 \cdot 2^{15}$ bytes $= \frac{75 \cdot 2^{15}}{2^12}$ pages $= 75 \cdot 2^3$ pages. So we will need \\
+\[
+\lceil\frac{75 \cdot 2^3}{2^8}\rceil = 3 
+\]
+L3 page tables, which wastes $3 \cdot 2^8 -75 \cdot 2^3  = 168$ entries. \\\\ So we will need $\lceil \frac{3}{2^4} \rceil = 1$ L2 page (which is wasting $2^4 - 3$ entries).\\\\ We are only using 1 L1 entry so 1 L1 page table, and so we are wasting $2^8 - 1$ entries. \\\\
+In total for the data segment page tables we are allocating:\\
+\[
+3 \cdot 2^8 + 2^4 + 2^8 = 1040 \mbox{ entries}
+\]
+So we are allocating $1040 \cdot 6 = 6240$ bytes. We are wasting: \\
+\[
+168 + 2^4 - 3 + 2^8 - 1 = 436 \mbox{ entries}
+\]
+which is $436 \cdot 6 = 2616$ bytes. \\\\
+We've already done the calculations for 64K in b.). Recall we allocated $3168$ bytes for page tables, and wasted $3060$ bytes. \\\\
+So in total, for page tables, this program will allocate: \\
+\[
+3168 + 6240 + 3168 = 12576 \mbox{ bytes}
+\] 
+And will waste: \\
+\[
+3084 + 2616 + 3060 = 8760 \mbox{ bytes}
+\]
 \end{enumerate}
 \end{document}
